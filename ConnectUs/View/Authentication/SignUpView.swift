@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @StateObject var viewModel = SignUpViewModel()
     @State private var isLoggingIn = false
+    
     var body: some View {
         NavigationView{
             ZStack(alignment:.top){
-                Color("Ivory")
+                Color("Cream")
                     .ignoresSafeArea(.all)
                 
                 VStack(spacing:20){
                     Image("connectus")
                         .resizable()
                         .clipShape(Circle())
-                        .frame(width: 120, height: 120)
+                        .frame(width: 150, height: 150)
                         .padding(.top, 10)
                         .scaleEffect(isLoggingIn ? 0.8 : 1.0)
                         .animation(.easeInOut)
@@ -31,7 +33,7 @@ struct SignUpView: View {
                         Text("ConnectUs ")
                             .bold()
                             .font(.title)
-                            .foregroundColor(isLoggingIn ? .black : Color("TiffanyBlue"))
+                            .foregroundColor(isLoggingIn ? .black : Color("Mint"))
                         +
                         Text("and embark on a journey!")
                             .font(.title)
@@ -41,7 +43,7 @@ struct SignUpView: View {
                     .opacity(isLoggingIn ? 0.0 : 1.0)
                     .animation(.easeInOut)
                     
-                    TextField("Name", text: .constant(""))
+                    TextField("Name", text: $viewModel.name)
                         .padding()
                         .background(Color.white.opacity(0.5))
                         .cornerRadius(8)
@@ -49,7 +51,7 @@ struct SignUpView: View {
                         .opacity(isLoggingIn ? 0.0 : 1.0)
                         .animation(.easeInOut)
                     
-                    TextField("Email", text: .constant(""))
+                    TextField("Email", text: $viewModel.email)
                         .padding()
                         .background(Color.white.opacity(0.5))
                         .cornerRadius(8)
@@ -57,7 +59,7 @@ struct SignUpView: View {
                         .opacity(isLoggingIn ? 0.0 : 1.0)
                         .animation(.easeInOut)
                     
-                    SecureField("Password", text: .constant(""))
+                    SecureField("Password", text: $viewModel.password)
                         .padding()
                         .background(Color.white.opacity(0.5))
                         .cornerRadius(8)
@@ -68,7 +70,8 @@ struct SignUpView: View {
                     Button(action: {
                         withAnimation {
                             // Perform login action
-                            isLoggingIn.toggle()
+                            //isLoggingIn.toggle()
+                            viewModel.register()
                         }
                     }) {
                         Text("Sign Up")
@@ -97,20 +100,4 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView()
     }
 }
-////Group {
-////.
-//Text("Join ")
-//    .bold()
-//    .font(.title) +
-//    Text("ConnectUs ")
-//        .bold()
-//        .font(.title)
-//        .foregroundColor(isLoggingIn ? .black : Color("TiffanyBlue"))
-//    +
-//    Text("and embark on a journey!")
-//        .font(.title)
-//        .bold()
-//
-//}
-//.opacity(isLoggingIn ? 0.0 : 1.0)
-//.animation(.easeInOut)
+

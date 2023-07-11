@@ -8,39 +8,36 @@
 import SwiftUI
 
 struct LogInView: View {
+    @StateObject var viewModel = LogInViewModel()
     @State private var isLoggingIn = false
     
     var body: some View {
         NavigationView {
             ZStack {
-                Color("Ivory")
+                Color("Cream")
                     .ignoresSafeArea(.all)
                 
                 VStack(spacing: 20) {
                     Image("connectus")
                         .resizable()
                         .clipShape(Circle())
-                        .frame(width: 120, height: 120)
+                        .frame(width: 150, height: 150)
                         .padding(.top, 10)
                         .scaleEffect(isLoggingIn ? 0.8 : 1.0)
                         .animation(.easeInOut)
                     
             
                     Group {
-                            Text("Unlock your professional potential with ")
-                                .bold()
-                                .font(.title)
-                            +
-                            Text("ConnectUs!")
+                        Text("Unlock your professional potential with ").font(.title).bold() + Text("ConnectUs!")
                                 .font(.title)
                                 .bold()
-                                .foregroundColor(isLoggingIn ? .black : Color("TiffanyBlue"))
+                                .foregroundColor(isLoggingIn ? .black : Color("Mint"))
                         }
                         .opacity(isLoggingIn ? 0.0 : 1.0)
                         .animation(.easeInOut)
                     
                     
-                    TextField("Username", text: .constant(""))
+                    TextField("Email", text: $viewModel.email)
                         .padding()
                         .background(Color.white.opacity(0.5))
                         .cornerRadius(8)
@@ -48,7 +45,7 @@ struct LogInView: View {
                         .opacity(isLoggingIn ? 0.0 : 1.0)
                         .animation(.easeInOut)
                     
-                    SecureField("Password", text: .constant(""))
+                    SecureField("Password", text: $viewModel.password)
                         .padding()
                         .background(Color.white.opacity(0.5))
                         .cornerRadius(8)
@@ -59,7 +56,7 @@ struct LogInView: View {
                     Button(action: {
                         withAnimation {
                             // Perform login action
-                            isLoggingIn.toggle()
+                            viewModel.login()
                         }
                     }) {
                         Text("Log In")
