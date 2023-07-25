@@ -17,35 +17,46 @@ struct ProfileView: View {
     @State private var companyName = ""
     @State private var location = ""
     @State private var connectionCount = "500+ Connections"
-    
+    @State private var searchText = ""
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Color.black
                 .ignoresSafeArea(.all)
             
-            ScrollView {
-                VStack(spacing: 40) {
-                        ProfilePicture()
-                            .ignoresSafeArea(.all)
-                      
-                        VStack{
-                            actionButtons
+            VStack(spacing: 0) {
+                HStack {
+                                   SearchBar(searchText: $searchText, placeholder: "Search")
+                                       .padding(.horizontal, 75) // Add horizontal padding to center the SearchBar
+                                       .background(Color.black)
+                                       .foregroundColor(.white) // Set the SearchBar text color to white
+                               }
+                               .padding(.top, 20)
+                ScrollView {
+                    VStack(spacing: 40) {
+                            ProfilePicture()
+                                .ignoresSafeArea(.all)
+                          
+                            VStack{
+                                actionButtons
+                                
+                                userInfoDetails
+                
+                            }.padding()
+                       
+                       
+                            ExperienceView().padding(.top,-80)
+                                .padding(.leading,80)
+                        
+                            SocialMediaCardView().padding(.top,-30)
+                            .padding([.leading,.trailing],70)
                             
-                            userInfoDetails
-            
-                        }.padding()
-                   
-                   
-                        ExperienceView().padding(.top,-80)
-                            .padding(.leading,80)
-                    
-        
-                        
-                        Spacer()
-                        
-                        Spacer()
-                }
-            }.ignoresSafeArea(.all, edges: .top)
+                            
+                            Spacer()
+                            
+                            Spacer()
+                    }
+                }.ignoresSafeArea(.all, edges: .top)
+            }
      
             
         }

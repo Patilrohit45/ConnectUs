@@ -10,12 +10,16 @@ import Firebase
 
 @main
 struct ConnectUsApp: App {
+    @StateObject private var socialMediaListManager = SocialMediaListManager()
+
     init() {
-            FirebaseApp.configure() // Configure Firebase
-        }
+        FirebaseApp.configure() // Configure Firebase
+    }
+
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(socialMediaListManager) // Add the environmentObject modifier here
         }
     }
 }

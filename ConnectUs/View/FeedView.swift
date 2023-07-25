@@ -13,10 +13,19 @@ struct FeedView: View {
             Color("HotPink")
                 .ignoresSafeArea(.all)
             
-            Text("Feed View")
-                .font(.title)
-                .bold()
-                .foregroundColor(Color.black)
+            VStack{
+                Text("Feed View")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(Color.black)
+                
+      
+                LottieView(name: "Animation", loopMode: .loop)
+                    .scaleEffect(0.2) // Apply additional frame modifiers if necessary
+                    .frame(height:300)
+                Spacer()
+            }
+                
         }
     }
 }
